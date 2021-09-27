@@ -1,8 +1,11 @@
 // 导入express
 const express = require('express')
 
-// 创建服务器
+// 在错误判断里面需要用到joi
 
+const joi = require('joi')
+
+// 创建服务器
 const app = express()
 
 // 导入并配置cors中间件解决跨域问题
@@ -30,6 +33,16 @@ app.use((req, res, next) => {
 const userRouter = require('./router/user')
 app.use('/api', userRouter)
     // 启动服务
+
+// 路由之后定义错误捕捉中间件
+app.use((err, req, res, next) => {
+    if (err instanceof joi.ValidationError) {
+        //表单验证错误
+        res.cc(err)
+    }
+    res.cc(err)
+})
+
 
 app.listen(3009, () => {
     console.log("running at 127.0.0.1")

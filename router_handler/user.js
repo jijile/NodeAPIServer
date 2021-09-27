@@ -12,7 +12,7 @@ module.exports.regUser = (req, res) => {
     const userInfo = req.body
         // 对表单数据进行合法性校验
     if (!userInfo.username || !userInfo.password) {
-        return res.cc("用户名或密码不合法")
+        return res.cc("用户名或者密码不合法")
     }
 
     // 定义sql语句 查询用户名是否被占用

@@ -14,6 +14,6 @@ const { reg_login_schema } = require("../schema/user");
 router.post("/reguser", expressJoi(reg_login_schema), routerHandeler.regUser);
 
 // 登录 使用路由处理函数处理回调
-router.post("/login", routerHandeler.loginUser);
+router.post("/login", expressJoi(reg_login_schema), routerHandeler.loginUser);
 
 module.exports = router;

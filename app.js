@@ -29,21 +29,29 @@ app.use((req, res, next) => {
     next()
 })
 
+// 配置需要验证token的中间件，中间件一定要在路由之前
+const expressJWT = require('express-jwt')
+const config = require('./config')
+app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api/] }))
+
+
 // 导入并且使用路由模块中间件
 const userRouter = require('./router/user')
+
 app.use('/api', userRouter)
-    // 启动服务
 
 // 路由之后定义错误捕捉中间件
 app.use((err, req, res, next) => {
     if (err instanceof joi.ValidationError) {
         //表单验证错误
-        res.cc(err)
+        return res.cc(err)
     }
+    // 身份认证失败
+    if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！')
     res.cc(err)
 })
 
-
+// 启动服务
 app.listen(3009, () => {
     console.log("running at 127.0.0.1")
 })

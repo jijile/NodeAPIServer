@@ -35,20 +35,24 @@ const config = require('./config')
 app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({ path: [/^\/api/] }))
 
 
-// 导入并且使用路由模块中间件
+// 这边的思路是一个url前缀作为一个中间件
+// 导入user模块并且挂载api url前缀和中间件
 const userRouter = require('./router/user')
+app.use('/api', userRouter);
 
-app.use('/api', userRouter)
+// 导入用户信息模块，并且挂载中间件和url前缀
+const userinfoRouter = require('./router/userinfo')
+app.use('/my', userinfoRouter);
 
 // 路由之后定义错误捕捉中间件
 app.use((err, req, res, next) => {
     if (err instanceof joi.ValidationError) {
         //表单验证错误
-        return res.cc(err)
+        return res.cc(err);
     }
     // 身份认证失败
     if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！')
-    res.cc(err)
+    res.cc(err);
 })
 
 // 启动服务

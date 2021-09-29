@@ -1,10 +1,10 @@
 const mysql = require('mysql')
 
 const db = mysql.createPool({
-    host: '127.0.0.1',
+    host: '121.40.154.75',
     user: 'root',
-    password: '123456',
-    database: 'student'
+    password: 'Zwlyy123456~',
+    database: 'mysql'
 })
 
 db.query('select 1', (err, results) => {

@@ -50,7 +50,7 @@ module.exports.regUser = (req, res) => {
         const insertSql = 'insert into ev_users set ?'
 
 
-        db.query(insertSql, { id: 12, username: userInfo.username }, (err, results) => {
+        db.query(insertSql, { username: userInfo.username, password: userInfo.password }, (err, results) => {
             //判断执行语句是否成功
             if (err) return res.cc(err)
                 // 根据影响行数来判断执行是否成功

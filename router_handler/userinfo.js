@@ -70,3 +70,18 @@ module.exports.updatePassword = (req, res) => {
     })
 
 }
+
+// 更新用户头像的路由处理函数
+module.exports.updataAvatar = (req, res) => {
+    // 定义更新头像的SQL语句
+    const sql = `update ev_users set user_pic=? where id=?`
+        // 执行SQL
+    db.query(sql, [req.body.avatar, req.user.id], (err, results) => {
+        // sql执行失败
+        if (err) return res.cc(err)
+            // 是否影响一行数据
+        if (results.affectedRows != 1) return res.cc('更新头像失败')
+            // 更新成功
+        res.cc('更新头像成功！', 0)
+    })
+}

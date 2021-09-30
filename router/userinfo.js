@@ -15,11 +15,14 @@ const router = express.Router();
 router.get('/userinfo', userInfoHandle.getUserInfo);
 
 // 利用结构取出验证规则对象，结构可以不用创建一个接收属性直接调用原来的key update_userinfo_schema ，update_password_schema
-const { update_userinfo_schema, update_password_schema } = require('../schema/user')
+const { update_userinfo_schema, update_password_schema, update_avatar_schema } = require('../schema/user')
     // 更新用户信息，post,需要验证id 邮箱 用户名，所以需要导入验证规则局部中间件
 router.post('/userinfo', expressJoi(update_userinfo_schema), userInfoHandle.updateUserInfo);
 
 // 更新用户密码post,并且使用验证规则中间件验证密码
 router.post('/updatepwd', expressJoi(update_password_schema), userInfoHandle.updatePassword)
+
+// 更新用户头像的接口路由 post,并使用验证头像规则的中间件
+router.post('/update/avatar', expressJoi(update_avatar_schema), userInfoHandle.updataAvatar)
 
 module.exports = router;

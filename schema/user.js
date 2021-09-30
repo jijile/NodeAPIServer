@@ -41,3 +41,13 @@ module.exports.update_password_schema = {
         newPwd: joi.not(joi.ref('oldPwd')).concat(password)
     }
 }
+
+// 定义验证头像的规则对象
+const avatar = joi.string().dataUri().required()
+    // 暴露验证规则对象
+module.exports.update_avatar_schema = {
+    body: {
+        // 定义的参数和验证头像规则重名这边可以简写
+        avatar
+    }
+}

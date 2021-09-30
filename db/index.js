@@ -10,7 +10,7 @@ const mysql = require('mysql')
 
 // 正式
 const db = mysql.createPool({
-    host: '121.40.154.75',
+    host: '172.19.186.179',
     user: 'root',
     password: 'Zwlyy123456~',
     database: 'mysql'

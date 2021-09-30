@@ -2,7 +2,7 @@
 
 const joi = require('joi')
 
-// 定义用户名和密码的验证规则
+// 定义登录注册的用户名和密码的验证规则
 
 const username = joi.string().alphanum().min(1).max(10).required()
 
@@ -13,5 +13,31 @@ module.exports.reg_login_schema = {
     body: {
         username,
         password
+    }
+}
+
+// 定义id ,nickname,email的验证规则
+
+const id = joi.number().integer().min(1).required()
+
+const nickname = joi.string().required()
+
+const email = joi.string().email().required()
+
+
+module.exports.update_userinfo_schema = {
+    body: {
+        //es6 key和value相同可以简写
+        id,
+        nickname,
+        email
+    }
+}
+
+// 创建验证密码的规则对象
+module.exports.update_password_schema = {
+    body: {
+        oldPwd: password,
+        newPwd: joi.not(joi.ref('oldPwd')).concat(password)
     }
 }

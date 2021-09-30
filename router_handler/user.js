@@ -133,8 +133,7 @@ module.exports.loginUser = (req, res) => {
         //使用扩展运算去除不需要的属性值
         const user = {...results[0], password: '', user_pic: '' }
 
-        // 利用包对用户信息进行加密
-
+        // 利用包对用户信息进行加密处理返回token
         const tokenStr = jwt.sign(user, config.jwtSecretKey, { expiresIn: expiresIn })
 
         console.log(tokenStr)

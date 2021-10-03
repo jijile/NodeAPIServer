@@ -44,6 +44,12 @@ app.use('/api', userRouter);
 const userinfoRouter = require('./router/userinfo')
 app.use('/my', userinfoRouter);
 
+// 文章分类路由
+// 导入文章分类路由模块
+const artRouter = require('./router/artcate')
+    // 调用路由模块中间件
+app.use('/my/article', artRouter)
+
 // 路由之后定义错误捕捉中间件
 app.use((err, req, res, next) => {
     if (err instanceof joi.ValidationError) {

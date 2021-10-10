@@ -12,7 +12,7 @@ module.exports.getUserInfo = (req, res) => {
     // 执行SQL语句 req.user是express-jwt中间件自己处理数据挂在在req上
     db.query(sqlStr, req.user.id, (err, results) => {
         if (err) return res.cc(err); //数据库操作失败
-        if (results.length <= 1) return res.cc('获取用户信息失败！')
+        if (results.length < 1) return res.cc('获取用户信息失败！')
             // 获取用户信息成功
         res.send({
             status: 0,
